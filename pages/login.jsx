@@ -32,9 +32,6 @@ const login = () => {
                     </div>
                 </Link>
                 <div className='container d-flex align-items-center justify-content-center mt-3'>
-
-
-
                     <Formik
                         initialValues={{ email: "", password: "" }}/* objeto con las propiedas que le quieres poner como valor por default */
                         onSubmit={() => { }}/* se encarga de evitar el event.preventDefault(), solo se jecuta cuando no haya ningun error  */
@@ -45,7 +42,7 @@ const login = () => {
                             <form onSubmit={handleSubmit}>
                                 <div className='container'>
                                     <div>
-                                        <input
+                                        <input className='form-control'
                                             style={{ width: '350px' }}
                                             name="email"
                                             placeholder="Escribe tu email"
@@ -54,10 +51,10 @@ const login = () => {
                                             value={values.email} />
                                         
                                     </div>
-                                    {errors.email && touched.email && errors.email}
+                                    <p className='text-danger'>{errors.email && touched.email && errors.email}</p>
                                     <div>
                                         <input
-                                            className='mt-3'
+                                            className='mt-3 form-control'
                                             style={{ width: '350px' }}
                                             name="password"
                                             type="password"
@@ -67,7 +64,7 @@ const login = () => {
                                             value={values.password} />
                                         
                                     </div>
-                                    {errors.password && touched.password && errors.password}
+                                    <p className='text-danger'>{errors.password && touched.password && errors.password}</p>
                                     <div className='d-flex justify-content-center mt-3'>
                                         <button className='btn btn-success' type="submit" disabled={isSubmitting}>
                                             Submit
