@@ -3,13 +3,7 @@ import React from 'react'
 import { Formik } from 'formik';
 
 /* Registro
-- First Name
-- Last Name
-- Email
--Country
--Zip
--City
--State (DropDown)
+
 -Phone (REGEX)
 -Password (REGEX)
 -Confirm Pasword
@@ -34,6 +28,9 @@ const registro = () => {
         ) {
             errors.password = 'Invalid, you need to have at least 8 characters, a special character and a number'
         }
+        if (values.password !== values.confirmPassword) {
+            errors.password = 'Las contraseñas no concuerdan'
+        }
         return errors;
     }
 
@@ -48,7 +45,7 @@ const registro = () => {
                 </Link>
                 <div className='container d-flex align-items-center justify-content-center mt-3'>
                     <Formik
-                        initialValues={{ email: "", password: "", name: "" }}/* objeto con las propiedas que le quieres poner como valor por default */
+                        initialValues={{ email: "", password: "", name: "", phone: "", confirmPassword: "" }}/* objeto con las propiedas que le quieres poner como valor por default */
                         onSubmit={() => { }}/* se encarga de evitar el event.preventDefault(), solo se jecuta cuando no haya ningun error  */
                         validate={values => validateFormik(values)}
                     >
@@ -105,19 +102,31 @@ const registro = () => {
                                         </div>
                                         <div>
                                             <select className='w-100 form-select'>
+                                                <option value='Estado'>Estado</option>
                                                 <option value='Washington'>Washington</option>
                                                 <option value='New York'>New York</option>
                                                 <option value='Nevada'>Nevada</option>
                                                 <option value='Delaware'>Delaware</option>
-                                                
+
                                             </select>
                                         </div>
                                     </div>
-
                                     <div>
                                         <input
-                                            className='mt-3 form-control'
-                                            style={{ width: '350px' }}
+                                            className='mt-3 form-control w-100'
+                                            name="phone"
+                                            type="number"
+                                            placeholder="Tu Teléfono"
+                                            onChange={handleChange}
+                                            onBlur={handleBlur}/* ejecutar una accion cuando sales del input */
+                                            value={values.phone}
+                                        />
+
+                                    </div>
+
+                                    <div className='d-flex'>
+                                        <input
+                                            className='mt-3 form-control w-50 me-1'
                                             name="password"
                                             type="password"
                                             placeholder="Tu Contraseña"
@@ -126,7 +135,18 @@ const registro = () => {
                                             value={values.password}
                                         />
 
+                                        <input
+                                            className='mt-3 form-control w-50 ms-1'
+                                            name="confirmPassword"
+                                            type="password"
+                                            placeholder="Repite Contraseña"
+                                            onChange={handleChange}
+                                            onBlur={handleBlur}/* ejecutar una accion cuando sales del input */
+                                            value={values.confirmPassword}
+                                        />
+
                                     </div>
+
                                     <p className='text-danger'>{errors.password && touched.password && errors.password}</p>
                                     <div className='d-flex justify-content-center mt-3'>
                                         <button className='btn btn-success' type="submit" disabled={isSubmitting}>
