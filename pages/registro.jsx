@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import React from 'react'
-import { Formik } from 'formik';
+import { Formik, Form, Field } from 'formik';
 
 /* Registro
 
@@ -21,14 +21,14 @@ const registro = () => {
         ) {
             errors.email = 'Invalid email address';
         }
-        if (!values.password) {
+        if (!values.password || !values.confirmPassword) {
             errors.password = 'Required';
         } else if (
-            !/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/i.test(values.password)
+            !/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/i.test(values.password) || 
+            !/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/i.test(values.confirmPassword) 
         ) {
             errors.password = 'Invalid, you need to have at least 8 characters, a special character and a number'
-        }
-        if (values.password !== values.confirmPassword) {
+        } else if (values.password !== values.confirmPassword) {
             errors.password = 'Las contraseñas no concuerdan'
         }
         return errors;
@@ -51,7 +51,7 @@ const registro = () => {
                     >
                         {({ values, handleChange, handleBlur, handleSubmit, errors, isSubmitting, touched }) => (
 
-                            <form onSubmit={handleSubmit}>
+                            <Form>
                                 <div className='container'>
                                     <div>
                                         <div className='d-flex justify-content-between mb-3'>
@@ -128,33 +128,31 @@ const registro = () => {
                                         <input
                                             className='mt-3 form-control w-50 me-1'
                                             name="password"
-                                            type="password"
+                                            type="text"
                                             placeholder="Tu Contraseña"
                                             onChange={handleChange}
-                                            onBlur={handleBlur}/* ejecutar una accion cuando sales del input */
                                             value={values.password}
                                         />
 
                                         <input
                                             className='mt-3 form-control w-50 ms-1'
                                             name="confirmPassword"
-                                            type="password"
+                                            type="text"
                                             placeholder="Repite Contraseña"
                                             onChange={handleChange}
-                                            onBlur={handleBlur}/* ejecutar una accion cuando sales del input */
                                             value={values.confirmPassword}
                                         />
 
                                     </div>
 
-                                    <p className='text-danger'>{errors.password && touched.password && errors.password}</p>
+                                    <p className='text-danger'>{touched.confirmPassword && errors.password && errors.password}</p>
                                     <div className='d-flex justify-content-center mt-3'>
-                                        <button className='btn btn-success' type="submit" disabled={isSubmitting}>
+                                        <button className='btn btn-success' type="submit">
                                             Submit
                                         </button>
                                     </div>
                                 </div>
-                            </form>
+                            </Form>
                         )}
                     </Formik>
                 </div>
