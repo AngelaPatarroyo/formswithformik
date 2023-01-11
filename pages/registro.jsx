@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Swal from 'sweetalert2'
 import React from 'react'
 import { Formik, Form, Field } from 'formik';
 
@@ -33,7 +34,13 @@ const registro = () => {
         }
         return errors;
     }
-
+const handleSubmit = () => {
+    Swal.fire(
+        'Good job!',
+        'You clicked the button!',
+        'success'
+      )
+}
     return (
 
         <>
@@ -46,7 +53,7 @@ const registro = () => {
                 <div className='container d-flex align-items-center justify-content-center mt-3'>
                     <Formik
                         initialValues={{ email: "", password: "", name: "", phone: "", confirmPassword: "" }}/* objeto con las propiedas que le quieres poner como valor por default */
-                        onSubmit={() => { }}/* se encarga de evitar el event.preventDefault(), solo se jecuta cuando no haya ningun error  */
+                        onSubmit={() => {handleSubmit()}}/* se encarga de evitar el event.preventDefault(), solo se jecuta cuando no haya ningun error  */
                         validate={values => validateFormik(values)}
                     >
                         {({ values, handleChange, handleBlur, handleSubmit, errors, isSubmitting, touched }) => (
