@@ -36,8 +36,8 @@ const registro = () => {
     }
 const handleSubmit = () => {
     Swal.fire(
-        'Good job!',
-        'You clicked the button!',
+        'Te has Registrado!',
+        'Pronto nos pondremos en contacto contigo',
         'success'
       )
 }
