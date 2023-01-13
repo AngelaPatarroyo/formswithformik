@@ -1,7 +1,7 @@
-import Link from 'next/link'
-import Swal from 'sweetalert2'
-import React from 'react'
-import { Formik, Form, Field } from 'formik';
+import { Form, Formik } from 'formik';
+import Link from 'next/link';
+import React from 'react';
+import Swal from 'sweetalert2';
 
 /* Registro
 
